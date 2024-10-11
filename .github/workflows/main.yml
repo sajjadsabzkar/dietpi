@@ -1,6 +1,10 @@
 name: Release 
 on:
   workflow_dispatch: 
+   inputs:
+      file_urls:
+        description: 'Comma-separated file URLs to download, e.g., https://example.com/file1.zip,https://example.com/file2.zip'
+        required: true
 permissions:
   contents: write
 jobs:
@@ -13,29 +17,15 @@ jobs:
         run: |
           sudo apt update
           sudo apt install libarchive-tools qemu-user-static mtools u-boot-tools 
-      - name: Restore cached sources
-        id: cache-restore-src
-        uses: actions/cache/restore@v3
-        with:
-          path: src.tar
-          key: ${{ runner.os }}-src
-          restore-keys: ${{ runner.os }}-src
-      - name: Restore cached binaries
-        id: cache-restore-bin
-        uses: actions/cache/restore@v3
-        with:
-          path: bin.tar
-          key: ${{ runner.os }}-bin
-          restore-keys: ${{ runner.os }}-bin
-      - name: Extract cached sources
+      - name: Create download directory
+        run: mkdir -p download
+      - name: Download files
         run: |
-          for i in bin src; do
-            if [[ -f $i.tar ]]; then
-              tar -xf $i.tar
-            fi
-          done
+          curl -L $file_url -o download/${{github.event.inputs.file_urls}}
       - name: build
-        run: sudo ./build.sh
+        run: |
+          cp ./build download
+          sudo ./build.sh
       - name: Pack sources
         run: |
           tar -cf src.tar src
