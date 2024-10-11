@@ -27,7 +27,7 @@ jobs:
         run: |
           cp ./build.sh download
           cd download
-          sudo ./build.sh $filename
+          sudo bash ./build.sh $filename
       - name: Release
         uses: ncipollo/release-action@v1
         with:
