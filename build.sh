@@ -51,13 +51,13 @@ echo $DIETPI_MOUNT_DEV
 dd if=${DIETPI_MOUNT_DEV}p1 of=DietPi_PART1.img status=progress
 
 # Size MB 
-#DIETPI_SIZE=$(du -m $DIETPI_IMG | awk '{ print $1}')
-DIETPI_SIZE=$(lsblk -fn ${DIETPI_MOUNT_DEV}p1 -o size | grep -o '[0-9]' |  tr -d '\n')
+DIETPI_SIZE=$(du -m $DIETPI_IMG | awk '{ print $1}')
+#DIETPI_SIZE=$(lsblk -fn ${DIETPI_MOUNT_DEV}p1 -o size | grep -o '[0-9]' |  tr -d '\n')
 
 #dd if=/dev/zero of=DietPi_PART1.img bs=1M count=200 seek=$DIETPI_SIZE
 
 # ADD + 200MB more then DIETPI_IMG
-S90X_IMG_SIZE=$(( DIETPI_SIZE + 210 ))
+S90X_IMG_SIZE=$(( DIETPI_SIZE + 600 ))
 
 S90X_IMG="S90Xx_TVBOX_${DIETPI_IMG}"
 
