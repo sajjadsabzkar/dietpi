@@ -22,16 +22,13 @@ jobs:
         run: |
           sudo apt update
           sudo apt install libarchive-tools qemu-user-static mtools u-boot-tools xz-utils
-
-      - name: Create download directory
-        run: mkdir -p download
-
+          
       - name: Download files
         run: |
           filename=$(basename https://dietpi.com/downloads/images/DietPi_OdroidC4-ARMv8-Bookworm.img.xz)
-          wget https://dietpi.com/downloads/images/DietPi_OdroidC4-ARMv8-Bookworm.img.xz -O download/$filename
+          wget https://dietpi.com/downloads/images/DietPi_OdroidC4-ARMv8-Bookworm.img.xz -O $filename
           echo "Downloaded file: $filename"
-          ls -l download/
+          ls -l 
 
       - name: Check file format
         run: |
@@ -56,9 +53,6 @@ jobs:
 
       - name: Build
         run: |
-          cp ./build.sh download
-          cd download
-          # Pass the .img file to build.sh
           sudo bash ./build.sh "$img_file"
 
       - name: Release
