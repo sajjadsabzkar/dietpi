@@ -37,11 +37,20 @@ jobs:
           sync
           sudo bash ./build.sh DietPi_OdroidC4-ARMv8-Bookworm.img
 
+      - name: set release name
+        id: clean
+        run: |
+          # Output cleaning result information
+          df -hT ${PWD}
+          echo "build_tag=Dietpi_$(date +"%Y.%m")" >> ${GITHUB_OUTPUT}
+          echo "status=success" >> ${GITHUB_OUTPUT}
+
+
       - name: Release
         uses: ncipollo/release-action@v1
         with:
-          name: Nightly
-          tag: nightly
+          name: S90Xx_TVBOX_Dietpi 
+          tag: ${{ steps.clean.outputs.build_tag }} 
           artifacts: ./*
           allowUpdates: true
           removeArtifacts: true
