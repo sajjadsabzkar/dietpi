@@ -1,4 +1,6 @@
 name: Release 
+on:
+  workflow_dispatch: 
 permissions:
   contents: write
 jobs:
@@ -32,8 +34,8 @@ jobs:
               tar -xf $i.tar
             fi
           done
-      - name: Cross build
-        run: ./cross_nobuild.sh
+      - name: build
+        run: ./build.sh
       - name: Pack sources
         run: |
           tar -cf src.tar src
