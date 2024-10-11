@@ -26,21 +26,7 @@ jobs:
       - name: build
         run: |
           cp ./build download
-          sudo ./build.sh
-      - name: Pack sources
-        run: |
-          tar -cf src.tar src
-          tar -cf bin.tar bin
-      - name: Save sources
-        uses: actions/cache/save@v3
-        with:
-          path: src.tar
-          key: ${{ runner.os }}-src-${{ hashFiles('src.tar') }}
-      - name: Save binaries
-        uses: actions/cache/save@v3
-        with:
-          path: bin.tar
-          key: ${{ runner.os }}-bin-${{ hashFiles('bin.tar') }}
+          sudo ./build.sh $filename
       - name: Release
         uses: ncipollo/release-action@v1
         with:
