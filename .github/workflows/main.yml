@@ -26,6 +26,8 @@ jobs:
         run: |
           filename=$(basename ${{github.event.inputs.file_urls}})
           curl -L ${{github.event.inputs.file_urls}} -o download/$filename
+          echo "Downloaded file: $filename"
+          ls -l download/
 
       - name: Check file format
         run: |
@@ -39,7 +41,6 @@ jobs:
           else
             echo "File format not supported or recognized."
             exit 1
-          fi
 
       - name: Build
         run: |
