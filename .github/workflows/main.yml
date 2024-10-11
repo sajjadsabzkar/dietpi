@@ -13,23 +13,41 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3.5.2
+
       - name: Prepare deps
         run: |
           sudo apt update
-          sudo apt install libarchive-tools qemu-user-static mtools u-boot-tools xz-utils tar
+          sudo apt install libarchive-tools qemu-user-static mtools u-boot-tools xz-utils
+
       - name: Create download directory
         run: mkdir -p download
+
       - name: Download files
         run: |
           filename=$(basename ${{github.event.inputs.file_urls}})
           curl -L ${{github.event.inputs.file_urls}} -o download/$filename
-      - name: build
+
+      - name: Check file format
+        run: |
+          filetype=$(file -b download/$filename)
+          echo "File type: $filetype"
+          # Check if the file is xz-compressed
+          if [[ "$filetype" == *"XZ compressed data"* ]]; then
+            echo "Extracting XZ file..."
+            unxz download/$filename
+            img_file="${filename%.xz}"
+          else
+            echo "File format not supported or recognized."
+            exit 1
+          fi
+
+      - name: Build
         run: |
           cp ./build.sh download
           cd download
-          unxz $filename
-          img_file="${filename%.xz}"
-          sudo bash ./build.sh img_file
+          # Pass the .img file to build.sh
+          sudo bash ./build.sh "$img_file"
+
       - name: Release
         uses: ncipollo/release-action@v1
         with:
