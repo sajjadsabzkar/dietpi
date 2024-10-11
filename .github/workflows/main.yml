@@ -25,7 +25,8 @@ jobs:
           curl -L ${{github.event.inputs.file_urls}} -o download/$filename
       - name: build
         run: |
-          cp ./build download
+          cp ./build.sh download
+          cd download
           sudo ./build.sh $filename
       - name: Release
         uses: ncipollo/release-action@v1
