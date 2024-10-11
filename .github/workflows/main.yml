@@ -1,12 +1,16 @@
 name: Release 
+
+# Trigger the workflow on every push
 on:
-  workflow_dispatch: 
-   inputs:
-      file_urls:
-        description: 'Comma-separated file URLs to download, e.g., https://example.com/file1.zip,https://example.com/file2.zip'
-        required: true
+  push:
+    branches:
+      - '*'  # Trigger on commits to any branch
+    paths:
+      - '**'  # Trigger on changes to any file in the repository
+
 permissions:
   contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -24,8 +28,8 @@ jobs:
 
       - name: Download files
         run: |
-          filename=$(basename ${{github.event.inputs.file_urls}})
-          curl -L ${{github.event.inputs.file_urls}} -o download/$filename
+          filename=$(basename https://dietpi.com/downloads/images/DietPi_OdroidC4-ARMv8-Bookworm.img.xz)
+          wget https://dietpi.com/downloads/images/DietPi_OdroidC4-ARMv8-Bookworm.img.xz -O download/$filename
           echo "Downloaded file: $filename"
           ls -l download/
 
