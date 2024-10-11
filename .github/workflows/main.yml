@@ -35,7 +35,7 @@ jobs:
             fi
           done
       - name: build
-        run: ./build.sh
+        run: sudo ./build.sh
       - name: Pack sources
         run: |
           tar -cf src.tar src
