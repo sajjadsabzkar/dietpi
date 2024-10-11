@@ -33,6 +33,7 @@ jobs:
 
       - name: Build
         run: |
+         unxz $filename
           sudo bash ./build.sh "$img_file"
 
       - name: Release
