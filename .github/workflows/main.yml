@@ -16,7 +16,7 @@ jobs:
       - name: Prepare deps
         run: |
           sudo apt update
-          sudo apt install libarchive-tools qemu-user-static mtools u-boot-tools xz-utils
+          sudo apt install libarchive-tools qemu-user-static mtools u-boot-tools xz-utils tar
       - name: Create download directory
         run: mkdir -p download
       - name: Download files
