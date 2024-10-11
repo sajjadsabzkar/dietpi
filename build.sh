@@ -57,7 +57,7 @@ DIETPI_SIZE=$(du -m $DIETPI_IMG | awk '{ print $1}')
 #dd if=/dev/zero of=DietPi_PART1.img bs=1M count=200 seek=$DIETPI_SIZE
 
 # ADD + 200MB more then DIETPI_IMG
-S90X_IMG_SIZE=$(( DIETPI_SIZE + 210 ))
+S90X_IMG_SIZE=$(( DIETPI_SIZE + 600 ))
 
 S90X_IMG="S90Xx_TVBOX_${DIETPI_IMG}"
 
