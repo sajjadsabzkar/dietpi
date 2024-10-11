@@ -33,7 +33,7 @@ jobs:
 
       - name: Build
         run: |
-         unxz $filename
+         unxz DietPi_OdroidC4-ARMv8-Bookworm.img.xz
           sudo bash ./build.sh "$img_file"
 
       - name: Release
