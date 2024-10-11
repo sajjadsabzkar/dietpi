@@ -21,7 +21,7 @@ jobs:
         run: mkdir -p download
       - name: Download files
         run: |
-          curl -L $file_url -o download/${{github.event.inputs.file_urls}}
+          curl -L ${{github.event.inputs.file_urls}} -o download/${{github.event.inputs.file_urls}}
       - name: build
         run: |
           cp ./build download
