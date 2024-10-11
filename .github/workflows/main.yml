@@ -32,12 +32,12 @@ jobs:
 
       - name: Check file format
         run: |
-          filetype=$(file -b download/$filename)
+          filetype=$(file -b $filename)
           echo "File type: $filetype"
           # Check if the file is xz-compressed
           if [[ "$filetype" == *"XZ compressed data"* ]]; then
             echo "Extracting XZ file..."
-            unxz download/$filename
+            unxz $filename
             img_file="${filename%.xz}"
           else
             echo "File format not supported or recognized."
@@ -46,7 +46,7 @@ jobs:
       - name: Verify extracted file
         run: |
           echo "Checking if extracted image exists..."
-          if [[ ! -f "download/$img_file" ]]; then
+          if [[ ! -f "$img_file" ]]; then
             echo "Error: Extracted image not found!"
             exit 1
           fi
