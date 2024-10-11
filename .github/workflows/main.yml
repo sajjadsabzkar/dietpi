@@ -42,6 +42,6 @@ jobs:
         with:
           name: Nightly
           tag: nightly
-          artifacts: out/latest/*
+          artifacts: ./*
           allowUpdates: true
           removeArtifacts: true
