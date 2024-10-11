@@ -30,26 +30,6 @@ jobs:
           echo "Downloaded file: $filename"
           ls -l 
 
-      - name: Check file format
-        run: |
-          filetype=$(file -b $filename)
-          echo "File type: $filetype"
-          # Check if the file is xz-compressed
-          if [[ "$filetype" == *"XZ compressed data"* ]]; then
-            echo "Extracting XZ file..."
-            unxz $filename
-            img_file="${filename%.xz}"
-          else
-            echo "File format not supported or recognized."
-            exit 1
-
-      - name: Verify extracted file
-        run: |
-          echo "Checking if extracted image exists..."
-          if [[ ! -f "$img_file" ]]; then
-            echo "Error: Extracted image not found!"
-            exit 1
-          fi
 
       - name: Build
         run: |
