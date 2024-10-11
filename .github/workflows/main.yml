@@ -16,7 +16,7 @@ jobs:
       - name: Prepare deps
         run: |
           sudo apt update
-          sudo apt install libarchive-tools qemu-user-static mtools u-boot-tools 
+          sudo apt install libarchive-tools qemu-user-static mtools u-boot-tools xz-utils
       - name: Create download directory
         run: mkdir -p download
       - name: Download files
@@ -27,7 +27,9 @@ jobs:
         run: |
           cp ./build.sh download
           cd download
-          sudo bash ./build.sh $filename
+          unxz $filename
+          img_file="${filename%.xz}"
+          sudo bash ./build.sh img_file
       - name: Release
         uses: ncipollo/release-action@v1
         with:
