@@ -2,6 +2,7 @@ name: Release
 
 # Trigger the workflow on every push
 on:
+  workflow_dispatch:
   push:
     branches:
       - '*'  # Trigger on commits to any branch
