@@ -27,7 +27,7 @@ jobs:
       - name: Download files
         run: |
           filename=$(basename https://dietpi.com/downloads/images/DietPi_OdroidC4-ARMv8-Trixie.img.xz)
-          wget https://dietpi.com/downloads/images/DietPi_OdroidC4-ARMv8-Bookworm.img.xz -O $filename
+          wget https://dietpi.com/downloads/images/DietPi_OdroidC4-ARMv8-Trixie.img.xz -O $filename
           echo "Downloaded file: $filename"
           ls -l 
 
