@@ -34,7 +34,7 @@ jobs:
 
       - name: Build
         run: |
-          unxz DietPi_OdroidC4-ARMv8-Bookworm.img.xz
+          unxz DietPi_OdroidC4-ARMv8-Trixie.img.xz
           sync
           sudo bash ./build.sh DietPi_OdroidC4-ARMv8-Bookworm.img
 
